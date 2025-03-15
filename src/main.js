@@ -7,6 +7,22 @@ const refs = {
   gallery: document.querySelector('.gallery'),
   galleryLink: document.querySelector('.gallery-link'),
 };
+//* LOADER
+
+const loaderBox = document.createElement('div');
+loaderBox.classList.add('loader-box');
+
+const loader = document.createElement('span');
+loader.classList.add('loader');
+
+loaderBox.appendChild(loader);
+
+document.body.insertBefore(loaderBox, refs.searchForm.nextSibling);
+
+const showLoader = loaderBox.classList.add('visible');
+const hideLoader = loaderBox.classList.remove('visible');
+
+// *
 // console.dir(refs.searchForm);
 // console.dir(refs.searchInput);
 const onFormSubmit = event => {
@@ -22,18 +38,7 @@ const onFormSubmit = event => {
   }
 
   refs.searchForm.reset();
-  //  loader
-  const loaderBox = document.createElement('div');
-  loaderBox.classList.add('loader-box');
 
-  const loader = document.createElement('span');
-  loader.classList.add('loader');
-
-  loaderBox.appendChild(loader);
-
-  document.body.insertBefore(loaderBox, refs.searchForm.nextSibling);
-
-  //<span class="loader"></span>
   getPhotos(formValue)
     .finally.then(data => {
       if (data.hits.length === 0) {

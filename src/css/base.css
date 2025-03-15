@@ -1,4 +1,6 @@
 @import 'izitoast/dist/css/iziToast.min.css';
+
+/* #region Loader */
 .loader {
   position: relative;
   display: flex;
@@ -41,3 +43,4 @@
     transform: translateY(-10px);
   }
 }
+/* #endregion */
