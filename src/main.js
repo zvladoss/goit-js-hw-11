@@ -1,35 +1,55 @@
 import iziToast from 'izitoast';
 import { getPhotos } from './js/pixabay-api';
-
+import { renderImage } from './js/render-functions';
 const refs = {
   searchForm: document.querySelector('form'),
   searchInput: document.querySelector('[name="search-text"]'),
   gallery: document.querySelector('.gallery'),
+  galleryLink: document.querySelector('.gallery-link'),
 };
-console.dir(refs.searchForm);
-console.dir(refs.searchInput);
+// console.dir(refs.searchForm);
+// console.dir(refs.searchInput);
 const onFormSubmit = event => {
   event.preventDefault();
 
   const formValue = refs.searchInput.value.trim();
-  if (formValue === '') {
+
+  if (!formValue) {
     iziToast.error({
       message: 'Error!',
     });
-
     return;
   }
 
+  refs.searchForm.reset();
+  //  loader
+  const loaderBox = document.createElement('div');
+  loaderBox.classList.add('loader-box');
+
+  const loader = document.createElement('span');
+  loader.classList.add('loader');
+
+  loaderBox.appendChild(loader);
+
+  document.body.insertBefore(loaderBox, refs.searchForm.nextSibling);
+
+  //<span class="loader"></span>
   getPhotos(formValue)
-    .then(data => {
+    .finally.then(data => {
       if (data.hits.length === 0) {
         return;
       }
-      console.dir(data);
+      const addGalleryItem = data.hits.map(hit => renderImage(hit)).join('');
+      refs.gallery.insertAdjacentHTML('beforeend', addGalleryItem);
+      console.log(addGalleryItem);
     })
     .catch(error => {
-      alert('Something went wrong. Please try again later.');
-      console.log(error);
+      console.error(error);
+      iziToast.error({
+        title: 'Error',
+        message: 'Something went wrong. Please try again later!',
+        position: 'topRight',
+      });
     });
 };
 refs.searchForm.addEventListener('submit', onFormSubmit);
