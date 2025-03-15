@@ -10,6 +10,7 @@ export const getPhotos = query => {
         image_type: 'photo',
         orientation: 'horizontal',
         safesearch: true,
+        per_page: 15,
       },
     })
     .then(response => response.data)
