@@ -12,18 +12,11 @@ const refs = {
 
 //* LOADER
 
-// const loaderBox = document.createElement('div');
-// loaderBox.classList.add('loader-box');
-
-// const loader = document.createElement('span');
-// loader.classList.add('loader');
-
-// loaderBox.appendChild(refs.loader);
-
-// document.body.insertBefore(loaderBox, refs.searchForm.nextSibling);
-const showLoader = () => refs.loaderBox.classList.add('loader');
-const hideLoader = () => refs.loaderBox.classList.remove('loader');
+const showLoader = () => refs.loader.classList.add('loader');
+const hideLoader = () => refs.loader.classList.remove('loader');
 // *
+
+hideLoader();
 
 const onFormSubmit = event => {
   event.preventDefault();
