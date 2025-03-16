@@ -1,4 +1,3 @@
-// import iziToast from 'izitoast';
 import SimpleLightbox from 'simplelightbox';
 export const renderImage = ({
   webformatURL,
@@ -12,7 +11,7 @@ export const renderImage = ({
   return `
       <li class="gallery-item">
         <a class="gallery-link" href="${largeImageURL}">
-          <img class="gallery-img" src="${webformatURL}" alt="${tags}" />
+          <img class="gallery-img" src="${webformatURL}" alt="${tags}" width ="360"/>
         </a>
         <ul class="gallery-list-info">
           <li class="gallery-list-info-item">

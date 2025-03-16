@@ -1,6 +1,7 @@
 import iziToast from 'izitoast';
 import { getPhotos } from './js/pixabay-api';
 import { updateGallery } from './js/render-functions';
+import icon from './img/icon.svg';
 const refs = {
   searchForm: document.querySelector('form'),
   searchInput: document.querySelector('[name="search-text"]'),
@@ -13,11 +14,11 @@ const loaderBox = document.createElement('div');
 loaderBox.classList.add('loader-box');
 
 const loader = document.createElement('span');
+loader.classList.add('loader');
 
 loaderBox.appendChild(loader);
 
 document.body.insertBefore(loaderBox, refs.searchForm.nextSibling);
-
 const showLoader = () => loaderBox.classList.add('loader');
 const hideLoader = () => loaderBox.classList.remove('loader');
 // *
@@ -28,22 +29,27 @@ const onFormSubmit = event => {
   const formValue = refs.searchInput.value.trim();
 
   if (!formValue) {
-    iziToast.error({
-      message: 'Error!',
-    });
     return;
   }
 
   refs.searchForm.reset();
+
+  refs.gallery.innerHTML = '';
 
   showLoader();
   getPhotos(formValue)
     .then(data => {
       if (data.hits.length === 0) {
         iziToast.error({
-          title: 'Error',
-          message: 'Something went wrong. Please try again later!',
+          message:
+            'Sorry, there are no images matching your search query. Please try again!',
           position: 'topRight',
+          titleColor: '#ffffff',
+          messageColor: '#ffffff',
+          backgroundColor: '#ef4040',
+          progressBarColor: '#B51B1B',
+          position: 'topRight',
+          iconUrl: icon,
         });
         return;
       }
@@ -51,11 +57,17 @@ const onFormSubmit = event => {
       updateGallery(refs.gallery, data.hits);
     })
     .catch(error => {
-      console.error(error);
+      console.log(error);
       iziToast.error({
-        title: 'Error',
-        message: 'Something went wrong. Please try again later!',
+        message: `${error}`,
         position: 'topRight',
+        titleColor: '#ffffff',
+        messageColor: '#ffffff',
+        backgroundColor: '#ef4040',
+        progressBarColor: '#B51B1B',
+        position: 'topRight',
+        iconUrl: icon,
+        timeout: false,
       });
     })
     .finally(() => hideLoader());
