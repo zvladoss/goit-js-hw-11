@@ -75,6 +75,9 @@ body {
   color: #6c8cff;
   animation: fill 1s ease-in infinite alternate;
 }
+.is-visible {
+  display: block;
+}
 .loader::before,
 .loader::after {
   content: '';

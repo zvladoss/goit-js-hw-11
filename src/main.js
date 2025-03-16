@@ -6,21 +6,23 @@ const refs = {
   searchForm: document.querySelector('form'),
   searchInput: document.querySelector('[name="search-text"]'),
   gallery: document.querySelector('.gallery'),
+  loader: document.querySelector('.loader'),
+  loaderBox: document.querySelector('.loader-box'),
 };
 
 //* LOADER
 
-const loaderBox = document.createElement('div');
-loaderBox.classList.add('loader-box');
+// const loaderBox = document.createElement('div');
+// loaderBox.classList.add('loader-box');
 
-const loader = document.createElement('span');
-loader.classList.add('loader');
+// const loader = document.createElement('span');
+// loader.classList.add('loader');
 
-loaderBox.appendChild(loader);
+// loaderBox.appendChild(refs.loader);
 
-document.body.insertBefore(loaderBox, refs.searchForm.nextSibling);
-const showLoader = () => loaderBox.classList.add('loader');
-const hideLoader = () => loaderBox.classList.remove('loader');
+// document.body.insertBefore(loaderBox, refs.searchForm.nextSibling);
+const showLoader = () => refs.loaderBox.classList.add('loader');
+const hideLoader = () => refs.loaderBox.classList.remove('loader');
 // *
 
 const onFormSubmit = event => {
